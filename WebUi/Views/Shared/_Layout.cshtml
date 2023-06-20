@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KokoMija</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/node/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
+    <link rel="stylesheet" href="~/WebUi.styles.css" asp-append-version="true" />
+</head>
+<body>
+    @await Html.PartialAsync("_navbar")
+    <div class="container">
+          @if (TempData["message"]!=null)
+          {
+          <partial name="_ResultMessage" model="@(TempData.Get<AlertMessage>("message"))" />
+          }
+
+        <main role="main" class="pb-3">
+          @RenderBody()
+        </main>
+    </div>
+
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top container">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+        <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+      </a>
+      <span class="mb-3 mb-md-0 text-muted">© 2022 KokoMija, Inc</span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-muted"  target="_blank" href="https://www.instagram.com/kokomija.pl"><span style="color: #8a3ab9;"><i class="fa-brands fa-instagram"></i></span></a></li>
+    </ul>
+  </footer>
+
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/node/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/node/@@popperjs/core/dist/umd/popper.min.js"></script>
+        <script>
+        $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+        });
+        </script>
+        @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

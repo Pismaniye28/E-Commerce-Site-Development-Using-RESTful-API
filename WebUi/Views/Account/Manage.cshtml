@@ -1,0 +1,41 @@
+@model UserProfileModel
+@section Scripts{
+    <script>document.querySelectorAll('#nav-tab>[data-bs-toggle="tab"]').forEach(el => {
+            el.addEventListener('shown.bs.tab', () => {
+                const target = el.getAttribute('data-bs-target')
+                const scrollElem = document.querySelector(`${target} [data-bs-spy="scroll"]`)
+                bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
+            })})
+    </script>
+}
+<hr>
+<div class="row">
+  <div class="col-md-4">
+      <form method="post">
+        <div class="card" style="width: 18rem;">
+          @if (Model.profilePic != null)
+          {
+            <img src="~/img/@Model.profilePic" class="card-img-top" alt="@Model.UserName">
+          }else{
+            <img src="~/img/profile.png" alt="Avatar">
+          }
+        
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      </form>
+  </div>
+
+  <div class="col-md-8">
+        <h4>Orders</h4>
+        <div class="row">
+            <div class="col-md-12">
+
+                
+            </div>
+        </div>
+  </div>
+</div>

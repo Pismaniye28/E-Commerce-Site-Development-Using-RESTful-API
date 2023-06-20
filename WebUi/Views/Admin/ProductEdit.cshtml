@@ -1,0 +1,138 @@
+@model ProductModel
+
+<h1 class="h3 mt-3">Edit Product</h1>
+<hr>
+<form asp-controller="Admin" asp-action="ProductEdit" method="POST" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+             <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+        
+            <input type="hidden" name="ProductId" value="@Model.ProductId">
+            <div class="form-group row mt-2">
+                <label asp-for="ProductName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="ProductName">
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="Url" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Url">
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  asp-for="Description" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <textarea id="editor" class="form-control" asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label  asp-for="Price" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+             <div class="form-group row mt-2">
+               
+                    <h1 class="h3">Images</h1>
+                    <hr>
+                <div class="card-group">
+               @for (int i = 0; i < Model.SelectedImages.Count; i++)
+            {
+                <input type="hidden" name="SelectedImages[@i].ImageId" value="@Model.SelectedImages[@i].ImageId">
+                <input type="hidden" name="SelectedImages[@i].ImageUrl" value="@Model.SelectedImages[@i].ImageUrl">
+            } 
+            <div class="row row-cols-1 row-cols-md-4 g-1">
+              @foreach (var item in ViewBag.Images)
+              {
+                    <div class="card-group">
+                        <div class="card">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" 
+                                    class="custom-control-input" 
+                                    name="selectedImages"
+                                    value="@item.ImageId"
+                                    id="image_@(item.ImageId)" 
+                                    @(Model.SelectedImages.Any(i=>i.ImageId==item.ImageId)?"checked":"")>
+                                    <label class="custom-control-label" for="image_@(item.ImageId)">@item.ImageUrl</label>
+                                </div>
+                            <img src="~/img/@item.ImageUrl" class="card-img-top" alt="@item.ColorName">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.ImageId , @item.ColorCode</h5>
+                                <p class="card-text">@item.ImageUrl</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+              }
+                </div>
+                </div>
+        </div>  
+                <button type="submit" class="btn btn-primary m-1 w-100">Save Product</button>
+        </div>
+        <div class="col-md-4">
+            @for (int i = 0; i < Model.SelectedCategories.Count; i++)
+            {
+                <input type="hidden" name="SelectedCategories[@i].CategoryId" value="@Model.SelectedCategories[@i].CategoryId">
+                <input type="hidden" name="SelectedCategories[@i].Name" value="@Model.SelectedCategories[@i].Name">
+            }
+
+            @foreach (var item in (List<Category>)ViewBag.Categories)
+            {
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" 
+                    class="custom-control-input" 
+                    name="categoryIds"
+                    value="@item.CategoryId"
+                    id="category_@(item.CategoryId)" 
+                    @(Model.SelectedCategories.Any(i=>i.CategoryId==item.CategoryId)?"checked":"")>
+                    <label class="custom-control-label" for="category_@(item.CategoryId)">@item.Name</label>
+                </div>
+            }      
+            <hr>
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsApproved" type="checkbox" class="custom-control-input">
+                <label asp-for="IsApproved" class="custom-control-label"></label>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+                <input asp-for="IsHome" type="checkbox" class="custom-control-input">
+                <label asp-for="IsHome" class="custom-control-label"></label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" asp-for="IsDiscount">
+                <label class="form-check-label" asp-for="IsDiscount"></label>
+            </div>
+            @if (Model.IsDiscount.Equals(true))
+            {  
+                <input asp-for="DiscountRate" class="form-control form-control-sm" placeholder="0.** discount rate">
+                <span asp-validation-for="DiscountRate"></span>
+            }
+
+
+        </div>
+    </div>
+
+</form>
+
+
+@section Scripts{
+    <script src="~/node/ckeditor/ckeditor.js"></script>
+    <script src="~/node/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/node/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        CKEDITOR.replace('editor')
+    </script>
+    <script>
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    </script>
+}

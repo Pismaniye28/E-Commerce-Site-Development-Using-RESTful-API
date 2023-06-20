@@ -1,0 +1,34 @@
+@model ImgListModel
+
+<a asp-controller="Admin" asp-action="ImageCreate" class="btn btn-outline-primary m-1">Create Image</a>
+<h1 class="h3">All Images</h1>
+<hr>
+<div class="row row-cols-1 row-cols-md-4 g-1">
+
+
+
+    @foreach (var item in Model.Images)
+    {
+        <div class="card-group col">
+        <div class="card shadow">
+            <form asp-controller="Admin" asp-action="ImageDelete" method="post" style="display: inline;" class="d-flex flex-row-reverse">
+                <a asp-controller="Admin" asp-action="ImageEdit" asp-route-id="@item.ImageId" class="btn btn-primary btn-sm mr-2"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                <input type="hidden" name="imageId" value="@item.ImageId">
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i>Delete</button>
+            </form>
+        <img src="~/img/@item.ImageUrl" class="card-img-top img-fluid" alt="@item.ColorName">
+        <div class="card-body">
+        <h5 class="card-title">Image Id : @item.ImageId </h5>
+        <p class="card-text">Name: @item.ImageUrl , <span style="background-color: @item.ColorCode;" class="btn btn-outline-primary">@item.ColorName</span></p>
+        </div>
+        <div class="card-footer">
+        <small class="text-muted">If you have problems : merturkgil@gmail.com</small>
+        </div>
+        </div>
+        </div>
+    }
+
+</div>
+
+ 
+

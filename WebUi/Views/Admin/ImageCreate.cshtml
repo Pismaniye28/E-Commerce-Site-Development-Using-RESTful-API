@@ -1,0 +1,44 @@
+@model ImgCreateModel
+<hr>
+<h1 class="h3">Upload</h1>
+<hr>
+<div class="card mb-3" style="max-width: 540px;">
+        
+        
+   
+  
+   
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Upload Info</h5>
+        <p class="card-text">Uploadlanan fotoğraf otomatik konum alır. Fakat boyutlarına dikkat edilmesi lazım. Otomatik değil. Sayfaya gidip eklediğiniz fotoğrafı kontrol ediniz. Bir terslik varsa benimle iletişime geçin</p>
+        <h5>Özellikler</h5>
+     <div>
+         <div>
+          <form asp-controller="Admin" asp-action="ImageCreate" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="input-group input-group-sm mb-3">
+            <span asp-validation-for="colorName" class="input-group-text" id="inputGroup-sizing-sm">Color Name</span>
+            <input asp-for="colorName" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="input-group input-group-sm mb-3">
+            <span asp-validation-for="colorCode" class="input-group-text" id="inputGroup-sizing-sm">Color Code</span>
+            <input asp-for="colorCode" type="color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input type="hidden" class="form-control" >
+                    <img src="" width="80"/>
+                    <input type="file" name="file" >
+                
+                 </div>
+        <hr>
+        <button type="submit" class="form-group btn btn-outline-primary d-block w-100">Submit</button>
+        </form>
+        </div>  
+     </div>
+        <p class="card-text"><small class="text-muted">merturkgil@gmail.com</small></p>
+      </div>
+    </div>
+
+  </div>
